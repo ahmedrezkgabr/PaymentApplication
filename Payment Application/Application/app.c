@@ -3,6 +3,21 @@
 #include "app.h"
 #include "../Server/server.h"
 
+void display(ST_transaction_t *transData)
+{
+    printf("------------------------------------------------------------\n");
+    printf("Card's Holder Name: %s", transData->cardData.cardHolderName);
+    printf("Card PAN: %s\n", transData->cardData.primaryAccountNumber);
+    printf("Card Expiry Date: %s\n", transData->cardData.cardExpirationDate);
+    printf("-----------------------------------------------------------\n");
+    printf("Transaction Date: %s\n", transData->terminalData.transactionDate);
+    printf("Transaction Maximum Amount: %.2f\n", transData->terminalData.maxTransAmount);
+    printf("Transaction Amount: %.2f\n", transData->terminalData.transAmount);
+    printf("------------------------------------------------------------\n");
+    printf("Transaction Sequence Number :%d\n", transData->transactionSequenceNumber);
+    printf("------------------------------------------------------------\n");
+}
+
 void appStart(void)
 {
     uint32_t c = 1;
@@ -17,6 +32,7 @@ void appStart(void)
         {
         case APPROVED:
             printf("APPROVED\n");
+            display(&transaction);
             break;
         case DECLINED_EXPIRED_CARD:
             printf("EXPIRED CARD\n");
